@@ -1,6 +1,7 @@
 services:
   db:
     image: postgres:16-alpine
+    command: ["postgres", "-p", "5433"]
     environment:
       POSTGRES_USER: app
       POSTGRES_PASSWORD: app
@@ -10,7 +11,7 @@ services:
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U app"]
+      test: ["CMD-SHELL", "pg_isready -U app -p 5433"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -22,7 +23,7 @@ services:
     environment:
       PORT: 4001
       DB_HOST: db
-      DB_PORT: 5432
+      DB_PORT: 5433
       DB_USER: app
       DB_PASSWORD: app
       DB_NAME: app
@@ -42,7 +43,7 @@ services:
     environment:
       PORT: 4002
       DB_HOST: db
-      DB_PORT: 5432
+      DB_PORT: 5433
       DB_USER: app
       DB_PASSWORD: app
       DB_NAME: app

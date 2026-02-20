@@ -26,10 +26,7 @@ Then access:
 - Admin Feature Toggles: http://localhost:5174
 - Admin Stats Dashboard: http://localhost:5174/stats
 
-**Port Configuration**: If ports are already in use, feel free to change them in `docker-compose.yml`.
-- **Frontend ports** (5173, 5174): Update `docker-compose.yml` port mappings (lines 61, 72) and corresponding `vite.config.ts` files (`services/landing/vite.config.ts` line 8, `services/admin/vite.config.ts` line 8)
-- **Backend ports** (4001, 4002): Update `docker-compose.yml` port mappings (lines 21, 41) and `PORT` environment variables (lines 23, 43)
-- **Database port** (5433): Update `docker-compose.yml` port mapping (line 9)
+**Port Configuration**: Change host ports in `docker-compose.yml` as needed. If backend host ports change, also update `VITE_AB_SERVICE_URL` / `VITE_METRICS_SERVICE_URL` in compose so browser requests target the correct `localhost` ports. If DB port changes, keep `db` command, mapping, healthcheck, and backend `DB_PORT` aligned.
 
 **Variant Assignment**: On first visit, you're assigned a variant based on visitor ID hash (50/50 split). The assignment persists via cookies. 
 To test organic assignment, open the landing page to receive an initial variant. To get a fresh assignment, clear the site cookies and reload the landing page. You can also do this in an incognito window. 
